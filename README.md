@@ -1,2 +1,2 @@
 # ExcelDataExporter
-Export Excel data to Xml/Json
+Export Excel sheet data to Xml/Json using ClosedXML.
