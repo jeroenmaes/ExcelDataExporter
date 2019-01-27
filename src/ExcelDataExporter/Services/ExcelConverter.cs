@@ -11,11 +11,19 @@ using System.Diagnostics;
 using ExcelToXmlParser.Helpers;
 using System.Xml.Serialization;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace ExcelToXmlParser.Services
 {
     public class ExcelConverter : IExcelConverter
     {
+        private Stream _contents;
+
+        public void LoadStream(Stream contents)
+        {
+            _contents = contents;
+        }
+
         private DataTable ReadExcelFile(Stream contents)
         {
             // Initialize an instance of DataTable
@@ -67,24 +75,36 @@ namespace ExcelToXmlParser.Services
         /// </summary>
         /// <param name="filePath">Excel File Path</param>
         /// <returns>Xml format string</returns>
-        public string GetXML(Stream contents)
+        public string GetXML()
         {
             using (DataSet ds = new DataSet())
             {
-                ds.Tables.Add(this.ReadExcelFile(contents));
+                ds.Tables.Add(this.ReadExcelFile(_contents));
 
                 return ds.GetXml();
             }
         }
 
-        public string GetXML(Stream contents, string rootNodeName, string parentNodeName, string XmlNamespace)
+        public string GetJSON()
+        {
+            using (DataSet ds = new DataSet())
+            {
+                ds.Tables.Add(this.ReadExcelFile(_contents));
+
+                string json = JsonConvert.SerializeObject(ds.Tables[0], Formatting.Indented);
+
+                return json;
+            }
+        }
+
+        public string GetXML(string rootNodeName, string parentNodeName, string XmlNamespace)
         {
             using (DataSet ds = new DataSet())
             {
                 ds.Namespace = XmlNamespace;
                 ds.DataSetName = rootNodeName;
 
-                var table = this.ReadExcelFile(contents);
+                var table = this.ReadExcelFile(_contents);
                 table.TableName = parentNodeName;
 
                 ds.Tables.Add(table);

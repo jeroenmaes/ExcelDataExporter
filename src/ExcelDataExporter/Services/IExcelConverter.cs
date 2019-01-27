@@ -4,7 +4,9 @@ namespace ExcelToXmlParser.Services
 {
     public interface IExcelConverter
     {
-        string GetXML(Stream contents);
-        string GetXML(Stream contents, string rootNodeName, string parentNodeName, string Xmlnamespace);
+        void LoadStream(Stream contents);
+        string GetJSON();
+        string GetXML();
+        string GetXML(string rootNodeName, string parentNodeName, string xmlNamespace);
     }
 }
