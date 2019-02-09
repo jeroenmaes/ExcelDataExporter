@@ -10,7 +10,8 @@ variables:
 steps:
 - script: |
     dotnet restore
-    dotnet build --configuration $(buildConfiguration)    
+    dotnet build --configuration $(buildConfiguration)
+    
 - task: DotNetCoreCLI@2
     inputs:
       command: 'pack'
