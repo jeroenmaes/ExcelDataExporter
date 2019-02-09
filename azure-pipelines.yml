@@ -11,3 +11,8 @@ steps:
 - script: |
     dotnet restore
     dotnet build --configuration $(buildConfiguration)    
+
+task: NuGetCommand@2
+  inputs:
+    command: pack
+    packagesToPack: '**/ExcelDataExporter.csproj'
