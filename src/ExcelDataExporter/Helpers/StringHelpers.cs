@@ -47,8 +47,7 @@ namespace ExcelToXmlParser.Helpers
 
         public static string ReverseDateString(this string text)
         {
-            DateTime date;
-            var result = DateTime.TryParse(text, out date);
+            var result = DateTime.TryParse(text, out DateTime date);
 
             if (!result)
                 return string.Empty;

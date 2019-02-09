@@ -1,7 +1,6 @@
 ﻿using ExcelToXmlParser.Helpers;
 using ExcelToXmlParser.Services;
 using System;
-using Common.Logging;
 using System.IO;
 using System.Net.Http;
 
