@@ -11,9 +11,3 @@ steps:
 - script: |
     dotnet restore
     dotnet build --configuration $(buildConfiguration)
-    
-- task: DotNetCoreCLI@2
-    inputs:
-      command: 'pack'
-      configuration: 'release'
-      packagesToPack: '**/ExcelDataExporter.csproj'
